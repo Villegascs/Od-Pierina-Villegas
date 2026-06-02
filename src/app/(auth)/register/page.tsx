@@ -1,7 +1,41 @@
 'use client';
 import Link from 'next/link';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function RegisterPage() {
+  const router = useRouter();
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+    
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (res.ok) {
+        router.push('/login');
+      } else {
+        const result = await res.json();
+        setError(result.error || 'Error al registrarse');
+      }
+    } catch (err) {
+      setError('Error de conexión');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
       <div className="glass-panel animate-fade-in" style={{ width: '100%', maxWidth: '600px', padding: '2.5rem' }}>
@@ -12,38 +46,40 @@ export default function RegisterPage() {
           Regístrate para solicitar y gestionar tus citas
         </p>
 
-        <form style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        {error && <div style={{ color: 'white', background: 'var(--danger)', padding: '0.75rem', borderRadius: '8px', marginBottom: '1rem', textAlign: 'center' }}>{error}</div>}
+
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
             <div>
               <label className="label" htmlFor="firstName">Nombres</label>
-              <input className="input-field" type="text" id="firstName" placeholder="Tus nombres" required />
+              <input className="input-field" type="text" id="firstName" name="firstName" placeholder="Tus nombres" required />
             </div>
             <div>
               <label className="label" htmlFor="lastName">Apellidos</label>
-              <input className="input-field" type="text" id="lastName" placeholder="Tus apellidos" required />
+              <input className="input-field" type="text" id="lastName" name="lastName" placeholder="Tus apellidos" required />
             </div>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
             <div>
               <label className="label" htmlFor="email">Correo Electrónico</label>
-              <input className="input-field" type="email" id="email" placeholder="ejemplo@correo.com" required />
+              <input className="input-field" type="email" id="email" name="email" placeholder="ejemplo@correo.com" required />
             </div>
             <div>
               <label className="label" htmlFor="password">Contraseña</label>
-              <input className="input-field" type="password" id="password" placeholder="••••••••" required />
+              <input className="input-field" type="password" id="password" name="password" placeholder="••••••••" required />
             </div>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
             <div>
-              <label className="label" htmlFor="dob">Fecha de Nacimiento</label>
-              <input className="input-field" type="date" id="dob" required />
+              <label className="label" htmlFor="dateOfBirth">Fecha de Nacimiento</label>
+              <input className="input-field" type="date" id="dateOfBirth" name="dateOfBirth" required />
             </div>
             <div>
               <label className="label" htmlFor="gender">Sexo</label>
-              <select className="input-field" id="gender" required defaultValue="">
+              <select className="input-field" id="gender" name="gender" required defaultValue="">
                 <option value="" disabled>Selecciona...</option>
                 <option value="M">Masculino</option>
                 <option value="F">Femenino</option>
@@ -52,8 +88,8 @@ export default function RegisterPage() {
             </div>
           </div>
 
-          <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
-            Registrarse
+          <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }} disabled={loading}>
+            {loading ? 'Registrando...' : 'Registrarse'}
           </button>
         </form>
 
