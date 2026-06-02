@@ -1,0 +1,42 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(uuid())
+  firstName     String
+  lastName      String
+  email         String    @unique
+  password      String
+  dateOfBirth   DateTime?
+  gender        String?
+  role          String    @default("PATIENT") // PATIENT, ADMIN
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  appointments  Appointment[]
+}
+
+model Appointment {
+  id            String    @id @default(uuid())
+  patientId     String
+  patient       User      @relation(fields: [patientId], references: [id])
+  
+  requestedDate DateTime?
+  reason        String?
+  status        String    @default("PENDING") // PENDING, ACCEPTED, REJECTED
+  
+  // Asignado por el administrador (Odontóloga) al aceptar la cita:
+  agendaDate    DateTime? 
+  durationMins  Int?      
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
