@@ -50,3 +50,19 @@ export async function rejectAppointment(id: string) {
   
   revalidatePath('/admin');
 }
+
+export async function getAdminAppointments() {
+  const session = await getServerSession(authOptions);
+  if (session?.user?.role !== "ADMIN") return { pending: [], accepted: [], history: [] };
+
+  const all = await prisma.appointment.findMany({
+    include: { patient: true },
+    orderBy: { requestedDate: 'asc' }
+  });
+
+  return {
+    pending: all.filter(a => a.status === 'PENDING'),
+    accepted: all.filter(a => a.status === 'ACCEPTED'),
+    history: all.filter(a => a.status === 'REJECTED' || (a.status === 'ACCEPTED' && a.agendaDate && a.agendaDate < new Date()))
+  };
+}
