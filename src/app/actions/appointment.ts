@@ -61,8 +61,8 @@ export async function getAdminAppointments() {
   });
 
   return {
-    pending: all.filter(a => a.status === 'PENDING'),
-    accepted: all.filter(a => a.status === 'ACCEPTED'),
-    history: all.filter(a => a.status === 'REJECTED' || (a.status === 'ACCEPTED' && a.agendaDate && a.agendaDate < new Date()))
+    pending: all.filter((a: any) => a.status === 'PENDING'),
+    accepted: all.filter((a: any) => a.status === 'ACCEPTED'),
+    history: all.filter((a: any) => a.status === 'REJECTED' || (a.status === 'ACCEPTED' && a.agendaDate && a.agendaDate < new Date()))
   };
 }

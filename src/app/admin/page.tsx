@@ -30,7 +30,7 @@ export default async function AdminPage() {
             <h2 style={{ fontSize: '1.25rem', marginBottom: '1rem', color: 'var(--warning)' }}>Citas Pendientes ({pending.length})</h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               {pending.length === 0 && <p style={{ color: 'var(--text-muted)' }}>No hay solicitudes nuevas.</p>}
-              {pending.map(app => (
+              {pending.map((app: any) => (
                 <div key={app.id} style={{ border: '1px solid var(--border)', padding: '1rem', borderRadius: '8px', background: 'white' }}>
                   <p><strong>Paciente:</strong> {app.patient.firstName} {app.patient.lastName}</p>
                   <p><strong>Fecha sugerida:</strong> {app.requestedDate ? new Date(app.requestedDate).toLocaleDateString() : 'N/A'}</p>
@@ -66,7 +66,7 @@ export default async function AdminPage() {
           <section className="glass-panel" style={{ padding: '1.5rem' }}>
             <h2 style={{ fontSize: '1.25rem', marginBottom: '1rem', color: 'var(--text-muted)' }}>Historial Reciente</h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', maxHeight: '300px', overflowY: 'auto' }}>
-              {history.slice(0, 10).map(app => (
+              {history.slice(0, 10).map((app: any) => (
                 <div key={app.id} style={{ fontSize: '0.85rem', padding: '0.5rem', borderBottom: '1px solid var(--border)' }}>
                   <strong>{app.patient.firstName} {app.patient.lastName}</strong> - 
                   <span style={{ color: app.status === 'REJECTED' ? 'var(--danger)' : 'var(--text-muted)' }}> {app.status === 'REJECTED' ? 'Rechazada' : 'Atendida'}</span>
@@ -83,7 +83,7 @@ export default async function AdminPage() {
             
             <div style={{ display: 'grid', gap: '1rem' }}>
               {accepted.length === 0 && <p style={{ color: 'var(--text-muted)' }}>La agenda está libre.</p>}
-              {accepted.map(app => (
+              {accepted.map((app: any) => (
                 <div key={app.id} style={{ 
                   display: 'flex', 
                   alignItems: 'center', 

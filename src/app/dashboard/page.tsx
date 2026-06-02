@@ -65,7 +65,7 @@ export default async function DashboardPage() {
             <p style={{ color: 'var(--text-muted)' }}>No tienes citas registradas.</p>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              {appointments.map((app) => (
+              {appointments.map((app: any) => (
                 <div key={app.id} style={{ border: '1px solid var(--border)', borderRadius: '12px', padding: '1rem', background: 'var(--surface-alt)' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
                     <strong>{app.requestedDate ? new Date(app.requestedDate).toLocaleDateString() : 'Sin fecha'}</strong>
