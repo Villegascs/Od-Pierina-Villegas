@@ -1,8 +1,6 @@
 import Link from 'next/link';
 import { Heart, Sparkles, Stethoscope, ShieldCheck, Clock, MapPin, Phone, MessageCircle, ArrowRight, CheckCircle2 } from 'lucide-react';
 
-import { Heart, Sparkles, Stethoscope, ShieldCheck, Clock, MapPin, Phone, MessageCircle, ArrowRight, CheckCircle2 } from 'lucide-react';
-
 const SERVICES = [
   { id: 1, title: 'Blanqueamiento Dental', desc: 'Aclara el tono de tus dientes y elimina manchas para lograr una sonrisa brillante y rejuvenecida con nuestras técnicas seguras.', icon: Sparkles },
   { id: 2, title: 'Diseño de Sonrisa', desc: 'Mejora la forma, tamaño y color de tus dientes mediante carillas estéticas, adaptadas a la armonía de tu rostro.', icon: Heart },
