@@ -1,6 +1,16 @@
 import Link from 'next/link';
 import { Heart, Sparkles, Stethoscope, ShieldCheck, Clock, MapPin, Phone, MessageCircle, ArrowRight, CheckCircle2 } from 'lucide-react';
 
+import { Heart, Sparkles, Stethoscope, ShieldCheck, Clock, MapPin, Phone, MessageCircle, ArrowRight, CheckCircle2 } from 'lucide-react';
+
+const SERVICES = [
+  { id: 1, title: 'Blanqueamiento Dental', desc: 'Aclara el tono de tus dientes y elimina manchas para lograr una sonrisa brillante y rejuvenecida con nuestras técnicas seguras.', icon: Sparkles },
+  { id: 2, title: 'Diseño de Sonrisa', desc: 'Mejora la forma, tamaño y color de tus dientes mediante carillas estéticas, adaptadas a la armonía de tu rostro.', icon: Heart },
+  { id: 3, title: 'Limpieza Profunda', desc: 'Prevén caries y enfermedades periodontales con nuestra profilaxis profesional, dejando tus dientes impecables.', icon: ShieldCheck },
+  { id: 4, title: 'Odontología General', desc: 'Diagnóstico integral, restauración de caries, endodoncias y tratamientos preventivos para toda la familia.', icon: Stethoscope },
+  { id: 5, title: 'Ortodoncia', desc: 'Corrige la posición de tus dientes y mejora tu mordida con tratamientos modernos, estéticos y altamente efectivos.', icon: Sparkles },
+];
+
 export default function Home() {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -74,46 +84,29 @@ export default function Home() {
         </section>
 
         {/* 3. Services Section */}
-        <section style={{ padding: '6rem 1.5rem', background: 'var(--surface-alt)' }}>
-          <div className="container">
-            <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-              <h2 style={{ fontSize: 'clamp(2rem, 4vw, 2.5rem)', color: 'var(--primary)', marginBottom: '1rem', fontWeight: 700 }}>Nuestros Tratamientos</h2>
-              <p style={{ color: 'var(--text-muted)', maxWidth: '600px', margin: '0 auto' }}>Especialistas dedicados a brindarte la mejor atención en diversas áreas de la odontología para que luzcas una sonrisa radiante y saludable.</p>
-            </div>
-            
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-              <div className="service-card">
-                <div style={{ background: 'var(--primary-light)', width: '60px', height: '60px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
-                  <Sparkles size={28} color="var(--primary)" />
+        <section style={{ padding: '6rem 0', background: 'var(--surface-alt)', overflow: 'hidden' }}>
+          <div className="container" style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 2.5rem)', color: 'var(--primary)', marginBottom: '1rem', fontWeight: 700 }}>Nuestros Tratamientos</h2>
+            <p style={{ color: 'var(--text-muted)', maxWidth: '600px', margin: '0 auto' }}>
+              Especialistas dedicados a brindarte la mejor atención en diversas áreas de la odontología para que luzcas una sonrisa radiante y saludable.
+            </p>
+          </div>
+          
+          {/* Carousel Track */}
+          <div className="carousel-track">
+            {/* Render array twice for seamless loop */}
+            {[...SERVICES, ...SERVICES].map((service, index) => {
+              const Icon = service.icon;
+              return (
+                <div key={index} className="service-card" style={{ width: '320px', flexShrink: 0, margin: '0 1rem', whiteSpace: 'normal' }}>
+                  <div style={{ background: 'var(--primary-light)', width: '60px', height: '60px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
+                    <Icon size={28} color="var(--primary)" />
+                  </div>
+                  <h3 style={{ fontSize: '1.3rem', color: 'var(--primary)', marginBottom: '1rem', fontWeight: 600 }}>{service.title}</h3>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>{service.desc}</p>
                 </div>
-                <h3 style={{ fontSize: '1.3rem', color: 'var(--primary)', marginBottom: '1rem', fontWeight: 600 }}>Blanqueamiento Dental</h3>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>Aclara el tono de tus dientes y elimina manchas para lograr una sonrisa brillante y rejuvenecida con nuestras técnicas seguras.</p>
-              </div>
-              
-              <div className="service-card">
-                <div style={{ background: 'var(--primary-light)', width: '60px', height: '60px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
-                  <Heart size={28} color="var(--primary)" />
-                </div>
-                <h3 style={{ fontSize: '1.3rem', color: 'var(--primary)', marginBottom: '1rem', fontWeight: 600 }}>Diseño de Sonrisa</h3>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>Mejora la forma, tamaño y color de tus dientes mediante carillas estéticas, adaptadas a la armonía de tu rostro.</p>
-              </div>
-
-              <div className="service-card">
-                <div style={{ background: 'var(--primary-light)', width: '60px', height: '60px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
-                  <ShieldCheck size={28} color="var(--primary)" />
-                </div>
-                <h3 style={{ fontSize: '1.3rem', color: 'var(--primary)', marginBottom: '1rem', fontWeight: 600 }}>Limpieza Profunda</h3>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>Prevén caries y enfermedades periodontales con nuestra profilaxis profesional, dejando tus dientes impecables.</p>
-              </div>
-
-              <div className="service-card">
-                <div style={{ background: 'var(--primary-light)', width: '60px', height: '60px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
-                  <Stethoscope size={28} color="var(--primary)" />
-                </div>
-                <h3 style={{ fontSize: '1.3rem', color: 'var(--primary)', marginBottom: '1rem', fontWeight: 600 }}>Odontología General</h3>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>Diagnóstico integral, restauración de caries, endodoncias y tratamientos preventivos para toda la familia.</p>
-              </div>
-            </div>
+              );
+            })}
           </div>
         </section>
 
