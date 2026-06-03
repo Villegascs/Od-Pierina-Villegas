@@ -23,7 +23,7 @@ export default async function PatientsPage() {
               </div>
             </summary>
             
-            <div style={{ marginTop: '1.5rem', borderTop: '1px solid var(--border)', paddingTop: '1.5rem', display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '2rem' }}>
+            <div className="grid-1-2" style={{ marginTop: '1.5rem', borderTop: '1px solid var(--border)', paddingTop: '1.5rem' }}>
               <div>
                 <h3 style={{ fontSize: '1rem', color: 'var(--primary)', marginBottom: '1rem' }}>Datos Personales</h3>
                 <p style={{ fontSize: '0.9rem', marginBottom: '0.5rem' }}><strong>Sexo:</strong> {patient.gender === 'M' ? 'Masculino' : patient.gender === 'F' ? 'Femenino' : patient.gender || 'N/A'}</p>

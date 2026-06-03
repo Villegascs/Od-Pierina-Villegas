@@ -13,17 +13,10 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   }
 
   return (
-    <div style={{ display: 'flex', height: 'calc(100vh - 80px)', width: '100vw', overflow: 'hidden' }}>
+    <div className="admin-layout">
       {/* Sidebar - Shadcn UI Style */}
-      <aside style={{ 
-        width: '260px', 
-        background: 'var(--surface)', 
-        borderRight: '1px solid var(--border)', 
-        display: 'flex', 
-        flexDirection: 'column',
-        padding: '1.5rem 1rem'
-      }}>
-        <div style={{ padding: '0 0.5rem', marginBottom: '1.5rem' }}>
+      <aside className="admin-sidebar">
+        <div className="admin-sidebar-header">
           <h2 style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-main)', margin: 0 }}>Od. Pierina Villegas</h2>
           <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', margin: '0.25rem 0 0 0' }}>Panel de Control</p>
         </div>
@@ -33,15 +26,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         </div>
 
         {/* Footer / Profile */}
-        <div style={{ 
-          marginTop: 'auto', 
-          borderTop: '1px solid var(--border)', 
-          paddingTop: '1rem', 
-          display: 'flex', 
-          alignItems: 'center', 
-          justifyContent: 'space-between',
-          padding: '1rem 0.5rem 0 0.5rem'
-        }}>
+        <div className="admin-sidebar-footer">
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <span style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-main)' }}>{session.user.name}</span>
             <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{session.user.email}</span>
@@ -66,8 +51,8 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       </aside>
 
       {/* Main Content */}
-      <main style={{ flex: 1, overflowY: 'auto', background: 'var(--background)' }}>
-        <div style={{ padding: '2rem 3rem', maxWidth: '1200px' }}>
+      <main className="admin-main">
+        <div className="admin-container">
           {children}
         </div>
       </main>

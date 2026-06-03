@@ -28,7 +28,7 @@ export default async function DashboardPage() {
         <SignOutButton />
       </header>
 
-      <main style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+      <main className="grid-2">
         <section className="glass-panel" style={{ padding: '2rem' }}>
           <h2 style={{ fontSize: '1.5rem', marginBottom: '1.5rem' }}>Solicitar Nueva Cita</h2>
           

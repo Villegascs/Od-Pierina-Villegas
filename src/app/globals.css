@@ -206,3 +206,121 @@ button {
 .shadcn-calendar .rdp-nav_button:hover {
   background-color: var(--surface-alt);
 }
+
+/* --- Responsive Utilities --- */
+.admin-layout {
+  display: flex;
+  height: calc(100vh - 80px);
+  width: 100vw;
+  overflow: hidden;
+}
+
+.admin-sidebar {
+  width: 260px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1rem;
+}
+
+.admin-sidebar-header {
+  padding: 0 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.admin-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: 100%;
+}
+
+.admin-sidebar-footer {
+  margin-top: auto;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0.5rem 0 0.5rem;
+}
+
+.admin-main {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--background);
+}
+
+.admin-container {
+  padding: 2rem 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.grid-1-2 {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .admin-layout {
+    flex-direction: column;
+    height: auto;
+    overflow: auto;
+  }
+  
+  .admin-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 1rem;
+  }
+
+  .admin-sidebar-header {
+    display: none; /* Hide logo in sidebar on mobile to save space */
+  }
+
+  .admin-sidebar-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .admin-sidebar-footer {
+    display: none; /* Hide footer on mobile sidebar to save space, or simplify */
+  }
+
+  .admin-container {
+    padding: 1rem;
+  }
+
+  .grid-1-2 {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .grid-2 {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .grid-3 {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

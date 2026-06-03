@@ -22,7 +22,7 @@ export default function AdminSidebar() {
   if (!mounted) return null; // Avoid hydration mismatch
 
   return (
-    <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', width: '100%' }}>
+    <nav className="admin-sidebar-nav">
       {links.map((link) => {
         const isActive = pathname === link.href;
         const Icon = link.icon;

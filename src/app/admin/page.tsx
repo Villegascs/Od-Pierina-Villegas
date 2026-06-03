@@ -14,7 +14,7 @@ export default async function AdminPage() {
   const { pending, accepted, history } = await getAdminAppointments();
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '2rem' }}>
+    <div className="grid-1-2">
         
         {/* Columna Izquierda: Pendientes e Historial */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>

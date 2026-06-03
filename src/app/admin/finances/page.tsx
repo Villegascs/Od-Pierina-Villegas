@@ -12,7 +12,7 @@ export default async function FinancesPage() {
     <div>
       <h1 style={{ fontSize: '2rem', color: 'var(--primary)', marginBottom: '2rem' }}>Finanzas y Facturación</h1>
       
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '2.5rem' }}>
+      <div className="grid-3" style={{ marginBottom: '2.5rem' }}>
         <div style={{ background: 'var(--surface)', padding: '1.5rem', borderRadius: '12px', border: '1px solid var(--border)', textAlign: 'center' }}>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Ingresos Totales</p>
           <h2 style={{ color: 'var(--success)', fontSize: '1.75rem', margin: 0 }}>${totalIncome.toFixed(2)}</h2>
@@ -27,7 +27,7 @@ export default async function FinancesPage() {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '2rem' }}>
+      <div className="grid-1-2">
         {/* Formulario */}
         <div style={{ background: 'var(--surface)', padding: '2rem', borderRadius: '12px', border: '1px solid var(--border)' }}>
           <h2 style={{ fontSize: '1.25rem', color: 'var(--primary)', marginBottom: '1.5rem' }}>Registrar Movimiento</h2>
