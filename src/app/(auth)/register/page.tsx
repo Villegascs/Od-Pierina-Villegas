@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import SelectDropdown from '@/components/SelectDropdown';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -79,12 +80,15 @@ export default function RegisterPage() {
             </div>
             <div>
               <label className="label" htmlFor="gender">Sexo</label>
-              <select className="input-field" id="gender" name="gender" required defaultValue="">
-                <option value="" disabled>Selecciona...</option>
-                <option value="M">Masculino</option>
-                <option value="F">Femenino</option>
-                <option value="O">Otro</option>
-              </select>
+              <SelectDropdown
+                name="gender"
+                options={[
+                  { value: 'M', label: 'Masculino' },
+                  { value: 'F', label: 'Femenino' },
+                  { value: 'O', label: 'Otro' }
+                ]}
+                placeholder="Selecciona..."
+              />
             </div>
           </div>
 

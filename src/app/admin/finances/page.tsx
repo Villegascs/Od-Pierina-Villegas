@@ -1,5 +1,6 @@
 import { getTransactions, createTransaction, deleteTransaction } from "@/app/actions/finance";
 import DatePicker from "@/components/DatePicker";
+import SelectDropdown from "@/components/SelectDropdown";
 
 export default async function FinancesPage() {
   const transactions = await getTransactions();
@@ -41,10 +42,14 @@ export default async function FinancesPage() {
           }} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <div>
               <label className="label">Tipo de Movimiento</label>
-              <select name="type" className="input-field" required>
-                <option value="INCOME">Ingreso (+)</option>
-                <option value="EXPENSE">Gasto (-)</option>
-              </select>
+              <SelectDropdown
+                name="type"
+                options={[
+                  { value: 'INCOME', label: 'Ingreso (+)' },
+                  { value: 'EXPENSE', label: 'Gasto (-)' }
+                ]}
+                defaultValue="INCOME"
+              />
             </div>
             
             <div>
