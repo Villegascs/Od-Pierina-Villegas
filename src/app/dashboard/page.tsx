@@ -3,6 +3,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { requestAppointment } from "@/app/actions/appointment";
+import SignOutButton from "@/components/SignOutButton";
 
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
@@ -23,9 +24,7 @@ export default async function DashboardPage() {
     <div className="container" style={{ padding: '3rem 1.5rem', minHeight: '100vh' }}>
       <header style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3rem' }}>
         <h1 style={{ fontSize: '2rem', color: 'var(--primary)' }}>Hola, {session.user.name}</h1>
-        <form action="/api/auth/signout" method="POST">
-          <button type="submit" className="btn btn-outline">Cerrar Sesión</button>
-        </form>
+        <SignOutButton />
       </header>
 
       <main style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
