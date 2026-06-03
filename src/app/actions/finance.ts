@@ -31,3 +31,14 @@ export async function createTransaction(type: "INCOME" | "EXPENSE", amount: numb
 
   revalidatePath('/admin/finances');
 }
+
+export async function deleteTransaction(id: string) {
+  const session = await getServerSession(authOptions);
+  if (session?.user?.role !== "ADMIN") throw new Error("No autorizado");
+
+  await prisma.transaction.delete({
+    where: { id }
+  });
+
+  revalidatePath('/admin/finances');
+}

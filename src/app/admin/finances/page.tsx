@@ -1,4 +1,4 @@
-import { getTransactions, createTransaction } from "@/app/actions/finance";
+import { getTransactions, createTransaction, deleteTransaction } from "@/app/actions/finance";
 import DatePicker from "@/components/DatePicker";
 
 export default async function FinancesPage() {
@@ -80,10 +80,22 @@ export default async function FinancesPage() {
                     <strong style={{ display: 'block', marginBottom: '0.25rem' }}>{t.description}</strong>
                     <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{new Date(t.date).toLocaleDateString()}</span>
                   </div>
-                  <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                     <strong style={{ color: t.type === 'INCOME' ? 'var(--success)' : 'var(--danger)', fontSize: '1.1rem' }}>
                       {t.type === 'INCOME' ? '+' : '-'}${t.amount.toFixed(2)}
                     </strong>
+                    <form action={async () => {
+                      'use server';
+                      await deleteTransaction(t.id);
+                    }}>
+                      <button 
+                        type="submit" 
+                        title="Eliminar registro" 
+                        style={{ background: 'var(--surface-alt)', border: 'none', color: 'var(--danger)', cursor: 'pointer', padding: '0.25rem 0.5rem', borderRadius: '6px', fontSize: '0.8rem', fontWeight: 'bold' }}
+                      >
+                        ✕
+                      </button>
+                    </form>
                   </div>
                 </div>
               ))}
