@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import { getAdminAppointments, acceptAppointment, rejectAppointment, cancelAppointment, rescheduleAppointment } from "@/app/actions/appointment";
+import DatePicker from "@/components/DatePicker";
 
 export default async function AdminPage() {
   const session = await getServerSession(authOptions);
@@ -40,12 +41,16 @@ export default async function AdminPage() {
                   <div style={{ marginTop: '1rem', borderTop: '1px solid var(--border)', paddingTop: '1rem' }}>
                     <form action={async (formData) => {
                       'use server';
-                      const datetime = formData.get('datetime') as string;
+                      const date = formData.get('date') as string;
+                      const time = formData.get('time') as string;
                       const duration = parseInt(formData.get('duration') as string);
-                      await acceptAppointment(app.id, datetime, duration);
-                    }} style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                      <label style={{ fontSize: '0.9rem', color: 'var(--primary)', fontWeight: 500 }}>Fijar Fecha y Hora Exacta:</label>
-                      <input type="datetime-local" name="datetime" className="input-field" style={{ padding: '0.5rem' }} required />
+                      await acceptAppointment(app.id, `${date}T${time}`, duration);
+                    }} style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '1rem' }}>
+                      <label style={{ fontSize: '0.85rem', color: 'var(--primary)', fontWeight: 500 }}>Fecha de la cita:</label>
+                      <DatePicker name="date" allowPastDates={false} />
+                      
+                      <label style={{ fontSize: '0.85rem', color: 'var(--primary)', fontWeight: 500, marginTop: '0.5rem' }}>Hora de la cita:</label>
+                      <input type="time" name="time" className="input-field" style={{ padding: '0.5rem' }} required />
                       
                       <label style={{ fontSize: '0.9rem', color: 'var(--primary)', fontWeight: 500, marginTop: '0.5rem' }}>Duración (minutos):</label>
                       <input type="number" name="duration" defaultValue={30} className="input-field" style={{ padding: '0.5rem' }} required />
@@ -123,12 +128,16 @@ export default async function AdminPage() {
                     <div style={{ marginTop: '1rem', borderTop: '1px solid var(--border)', paddingTop: '1rem' }}>
                       <form action={async (formData) => {
                         'use server';
-                        const datetime = formData.get('datetime') as string;
+                        const date = formData.get('date') as string;
+                        const time = formData.get('time') as string;
                         const duration = parseInt(formData.get('duration') as string);
-                        await rescheduleAppointment(app.id, datetime, duration);
+                        await rescheduleAppointment(app.id, `${date}T${time}`, duration);
                       }} style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                        <label style={{ fontSize: '0.85rem', color: 'var(--primary)', fontWeight: 500 }}>Reagendar Fecha y Hora:</label>
-                        <input type="datetime-local" name="datetime" defaultValue={app.agendaDate ? new Date(new Date(app.agendaDate).getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16) : ''} className="input-field" style={{ padding: '0.5rem' }} required />
+                        <label style={{ fontSize: '0.85rem', color: 'var(--primary)', fontWeight: 500 }}>Reagendar Fecha:</label>
+                        <DatePicker name="date" defaultValue={app.agendaDate ? new Date(app.agendaDate) : undefined} allowPastDates={true} />
+                        
+                        <label style={{ fontSize: '0.85rem', color: 'var(--primary)', fontWeight: 500, marginTop: '0.5rem' }}>Reagendar Hora:</label>
+                        <input type="time" name="time" defaultValue={app.agendaDate ? new Date(new Date(app.agendaDate).getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(11, 16) : ''} className="input-field" style={{ padding: '0.5rem' }} required />
                         
                         <label style={{ fontSize: '0.85rem', color: 'var(--primary)', fontWeight: 500, marginTop: '0.5rem' }}>Nueva Duración (minutos):</label>
                         <input type="number" name="duration" defaultValue={app.durationMins || 30} className="input-field" style={{ padding: '0.5rem' }} required />

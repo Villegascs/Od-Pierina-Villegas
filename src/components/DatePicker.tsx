@@ -7,8 +7,8 @@ import { Calendar as CalendarIcon } from 'lucide-react';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 
-export default function DatePicker({ name }: { name: string }) {
-  const [date, setDate] = React.useState<Date>();
+export default function DatePicker({ name, defaultValue, allowPastDates = false }: { name: string, defaultValue?: Date, allowPastDates?: boolean }) {
+  const [date, setDate] = React.useState<Date | undefined>(defaultValue);
   const [isOpen, setIsOpen] = React.useState(false);
   const popoverRef = React.useRef<HTMLDivElement>(null);
 
@@ -24,10 +24,8 @@ export default function DatePicker({ name }: { name: string }) {
 
   return (
     <div className="date-picker-container" style={{ position: 'relative', width: '100%' }} ref={popoverRef}>
-      {/* Hidden input for server actions */}
       <input type="hidden" name={name} value={date ? format(date, 'yyyy-MM-dd') : ''} />
 
-      {/* Trigger Button */}
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
@@ -47,7 +45,6 @@ export default function DatePicker({ name }: { name: string }) {
         <CalendarIcon size={18} style={{ color: 'var(--primary)', opacity: 0.8 }} />
       </button>
 
-      {/* Popover Content */}
       {isOpen && (
         <div style={{
           position: 'absolute',
@@ -69,7 +66,7 @@ export default function DatePicker({ name }: { name: string }) {
               setIsOpen(false);
             }}
             locale={es}
-            disabled={(d) => d < new Date(new Date().setHours(0,0,0,0))}
+            disabled={allowPastDates ? undefined : (d) => d < new Date(new Date().setHours(0,0,0,0))}
             className="shadcn-calendar"
           />
         </div>

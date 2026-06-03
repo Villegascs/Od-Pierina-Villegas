@@ -1,4 +1,5 @@
 import { getTransactions, createTransaction } from "@/app/actions/finance";
+import DatePicker from "@/components/DatePicker";
 
 export default async function FinancesPage() {
   const transactions = await getTransactions();
@@ -58,7 +59,7 @@ export default async function FinancesPage() {
 
             <div>
               <label className="label">Fecha</label>
-              <input type="date" name="date" className="input-field" defaultValue={new Date().toISOString().split('T')[0]} required />
+              <DatePicker name="date" defaultValue={new Date()} allowPastDates={true} />
             </div>
 
             <button type="submit" className="btn btn-primary" style={{ marginTop: '1rem' }}>Guardar Movimiento</button>
