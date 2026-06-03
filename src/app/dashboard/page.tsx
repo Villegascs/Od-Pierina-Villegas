@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
-import { requestAppointment } from "@/app/actions/appointment";
+import { requestAppointment, cancelAppointment } from "@/app/actions/appointment";
 import SignOutButton from "@/components/SignOutButton";
 import DatePicker from "@/components/DatePicker";
 
@@ -74,10 +74,21 @@ export default async function DashboardPage() {
                       backgroundColor: app.status === 'PENDING' ? 'var(--warning)' : app.status === 'ACCEPTED' ? 'var(--success)' : 'var(--danger)',
                       color: 'white'
                     }}>
-                      {app.status === 'PENDING' ? 'Pendiente' : app.status === 'ACCEPTED' ? 'Aceptada' : 'Rechazada'}
+                      {app.status === 'PENDING' ? 'Pendiente' : app.status === 'ACCEPTED' ? 'Aceptada' : app.status === 'CANCELLED' ? 'Cancelada' : 'Rechazada'}
                     </span>
                   </div>
                   <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Motivo: {app.reason}</p>
+                  
+                  {app.status === 'PENDING' && (
+                    <form action={async () => {
+                      'use server';
+                      await cancelAppointment(app.id);
+                    }} style={{ marginTop: '0.5rem' }}>
+                      <button type="submit" style={{ color: 'var(--danger)', background: 'none', border: 'none', padding: 0, fontSize: '0.8rem', cursor: 'pointer', textDecoration: 'underline' }}>
+                        Cancelar Solicitud
+                      </button>
+                    </form>
+                  )}
                   
                   {app.status === 'ACCEPTED' && app.agendaDate && (
                     <div style={{ marginTop: '0.5rem', padding: '0.75rem', background: 'white', borderRadius: '8px', borderLeft: '4px solid var(--success)' }}>

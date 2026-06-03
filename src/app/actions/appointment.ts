@@ -63,6 +63,45 @@ export async function getAdminAppointments() {
   return {
     pending: all.filter((a: any) => a.status === 'PENDING'),
     accepted: all.filter((a: any) => a.status === 'ACCEPTED'),
-    history: all.filter((a: any) => a.status === 'REJECTED' || (a.status === 'ACCEPTED' && a.agendaDate && a.agendaDate < new Date()))
+    history: all.filter((a: any) => a.status === 'REJECTED' || a.status === 'CANCELLED' || (a.status === 'ACCEPTED' && a.agendaDate && a.agendaDate < new Date()))
   };
+}
+
+export async function cancelAppointment(id: string) {
+  const session = await getServerSession(authOptions);
+  if (!session?.user) throw new Error("No autenticado");
+
+  const appointment = await prisma.appointment.findUnique({ where: { id } });
+  if (!appointment) throw new Error("Cita no encontrada");
+
+  if (session.user.role === "PATIENT") {
+    if (appointment.patientId !== session.user.id || appointment.status !== "PENDING") {
+      throw new Error("No autorizado para cancelar esta cita");
+    }
+  } else if (session.user.role !== "ADMIN") {
+    throw new Error("No autorizado");
+  }
+
+  await prisma.appointment.update({
+    where: { id },
+    data: { status: "CANCELLED" }
+  });
+
+  revalidatePath('/dashboard');
+  revalidatePath('/admin');
+}
+
+export async function rescheduleAppointment(id: string, agendaDate: string, durationMins: number) {
+  const session = await getServerSession(authOptions);
+  if (session?.user?.role !== "ADMIN") throw new Error("No autorizado");
+
+  await prisma.appointment.update({
+    where: { id },
+    data: {
+      agendaDate: new Date(agendaDate),
+      durationMins
+    }
+  });
+
+  revalidatePath('/admin');
 }

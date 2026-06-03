@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
-import { getAdminAppointments, acceptAppointment, rejectAppointment } from "@/app/actions/appointment";
+import { getAdminAppointments, acceptAppointment, rejectAppointment, cancelAppointment, rescheduleAppointment } from "@/app/actions/appointment";
 import SignOutButton from "@/components/SignOutButton";
 
 export default async function AdminPage() {
@@ -77,7 +77,9 @@ export default async function AdminPage() {
               {history.slice(0, 10).map((app: any) => (
                 <div key={app.id} style={{ fontSize: '0.85rem', padding: '0.5rem', borderBottom: '1px solid var(--border)' }}>
                   <strong>{app.patient.firstName} {app.patient.lastName}</strong> - 
-                  <span style={{ color: app.status === 'REJECTED' ? 'var(--danger)' : 'var(--text-muted)' }}> {app.status === 'REJECTED' ? 'Rechazada' : 'Atendida'}</span>
+                  <span style={{ color: (app.status === 'REJECTED' || app.status === 'CANCELLED') ? 'var(--danger)' : 'var(--text-muted)' }}> 
+                    {app.status === 'REJECTED' ? 'Rechazada' : app.status === 'CANCELLED' ? 'Cancelada' : 'Atendida'}
+                  </span>
                 </div>
               ))}
             </div>
@@ -94,32 +96,60 @@ export default async function AdminPage() {
               {accepted.map((app: any) => (
                 <div key={app.id} style={{ 
                   display: 'flex', 
-                  alignItems: 'center', 
+                  flexDirection: 'column',
                   gap: '1rem',
                   padding: '1rem 1.5rem', 
                   borderRadius: '12px', 
                   background: 'var(--surface-alt)',
                   borderLeft: '6px solid var(--primary)'
                 }}>
-                  <div style={{ flexShrink: 0, textAlign: 'center', width: '100px' }}>
-                    <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--secondary)' }}>
-                      {app.agendaDate ? new Date(app.agendaDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <div style={{ flexShrink: 0, textAlign: 'center', width: '100px' }}>
+                      <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--secondary)' }}>
+                        {app.agendaDate ? new Date(app.agendaDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''}
+                      </div>
+                      <div style={{ fontSize: '0.85rem', color: 'var(--primary)' }}>
+                        {app.agendaDate ? new Date(app.agendaDate).toLocaleDateString([], { weekday: 'short', day: 'numeric', month: 'short' }) : ''}
+                      </div>
                     </div>
-                    <div style={{ fontSize: '0.85rem', color: 'var(--primary)' }}>
-                      {app.agendaDate ? new Date(app.agendaDate).toLocaleDateString([], { weekday: 'short', day: 'numeric', month: 'short' }) : ''}
+                    
+                    <div style={{ flex: 1 }}>
+                      <h3 style={{ fontSize: '1.1rem', margin: 0 }}>{app.patient.firstName} {app.patient.lastName}</h3>
+                      <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-muted)' }}>{app.reason}</p>
+                    </div>
+                    
+                    <div style={{ textAlign: 'right' }}>
+                      <span style={{ display: 'inline-block', background: 'white', padding: '0.25rem 0.5rem', borderRadius: '4px', fontSize: '0.8rem', border: '1px solid var(--border)' }}>
+                        ⏱ {app.durationMins} min
+                      </span>
                     </div>
                   </div>
-                  
-                  <div style={{ flex: 1 }}>
-                    <h3 style={{ fontSize: '1.1rem', margin: 0 }}>{app.patient.firstName} {app.patient.lastName}</h3>
-                    <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-muted)' }}>{app.reason}</p>
-                  </div>
-                  
-                  <div style={{ textAlign: 'right' }}>
-                    <span style={{ display: 'inline-block', background: 'white', padding: '0.25rem 0.5rem', borderRadius: '4px', fontSize: '0.8rem', border: '1px solid var(--border)' }}>
-                      ⏱ {app.durationMins} min
-                    </span>
-                  </div>
+
+                  <details style={{ background: 'var(--surface)', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border)' }}>
+                    <summary style={{ cursor: 'pointer', fontWeight: 600, color: 'var(--primary)', outline: 'none', fontSize: '0.9rem' }}>Gestionar Cita</summary>
+                    <div style={{ marginTop: '1rem', borderTop: '1px solid var(--border)', paddingTop: '1rem' }}>
+                      <form action={async (formData) => {
+                        'use server';
+                        const datetime = formData.get('datetime') as string;
+                        const duration = parseInt(formData.get('duration') as string);
+                        await rescheduleAppointment(app.id, datetime, duration);
+                      }} style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                        <label style={{ fontSize: '0.85rem', color: 'var(--primary)', fontWeight: 500 }}>Reagendar Fecha y Hora:</label>
+                        <input type="datetime-local" name="datetime" defaultValue={app.agendaDate ? new Date(new Date(app.agendaDate).getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16) : ''} className="input-field" style={{ padding: '0.5rem' }} required />
+                        
+                        <label style={{ fontSize: '0.85rem', color: 'var(--primary)', fontWeight: 500, marginTop: '0.5rem' }}>Nueva Duración (minutos):</label>
+                        <input type="number" name="duration" defaultValue={app.durationMins || 30} className="input-field" style={{ padding: '0.5rem' }} required />
+                        
+                        <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
+                          <button type="submit" className="btn btn-primary" style={{ flex: 1, padding: '0.5rem', fontSize: '0.85rem' }}>Guardar Cambios</button>
+                          <button formAction={async () => {
+                            'use server';
+                            await cancelAppointment(app.id);
+                          }} className="btn btn-outline" style={{ padding: '0.5rem', fontSize: '0.85rem', color: 'var(--danger)', borderColor: 'var(--danger)' }}>Cancelar Cita</button>
+                        </div>
+                      </form>
+                    </div>
+                  </details>
                 </div>
               ))}
             </div>
