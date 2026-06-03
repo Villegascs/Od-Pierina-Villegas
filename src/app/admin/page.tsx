@@ -26,15 +26,24 @@ export default async function AdminPage() {
         {/* Columna Izquierda: Pendientes e Historial */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           
-          <section className="glass-panel" style={{ padding: '1.5rem' }}>
-            <h2 style={{ fontSize: '1.25rem', marginBottom: '1rem', color: 'var(--warning)' }}>Citas Pendientes ({pending.length})</h2>
+          <section className="glass-panel" style={{ padding: '1.5rem', background: 'var(--surface)' }}>
+            <h2 style={{ fontSize: '1.25rem', marginBottom: '1rem', color: 'var(--primary)' }}>Citas Pendientes ({pending.length})</h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               {pending.length === 0 && <p style={{ color: 'var(--text-muted)' }}>No hay solicitudes nuevas.</p>}
               {pending.map((app: any) => (
-                <div key={app.id} style={{ border: '1px solid var(--border)', padding: '1rem', borderRadius: '8px', background: 'white' }}>
-                  <p><strong>Paciente:</strong> {app.patient.firstName} {app.patient.lastName}</p>
-                  <p><strong>Fecha sugerida:</strong> {app.requestedDate ? new Date(app.requestedDate).toLocaleDateString() : 'N/A'}</p>
-                  <p><strong>Motivo:</strong> {app.reason}</p>
+                <div key={app.id} style={{ border: '1px solid var(--border)', padding: '1.5rem', borderRadius: '12px', background: 'var(--surface)' }}>
+                  <h3 style={{ margin: '0 0 0.5rem 0', color: 'var(--primary)', fontSize: '1.2rem' }}>{app.patient.firstName} {app.patient.lastName}</h3>
+                  <p style={{ marginBottom: '1rem' }}><strong>Fecha sugerida:</strong> {app.requestedDate ? new Date(app.requestedDate).toLocaleDateString() : 'N/A'}</p>
+                  
+                  <details style={{ background: 'var(--surface-alt)', padding: '0.75rem', borderRadius: '8px', marginBottom: '1rem', border: '1px solid var(--border)' }}>
+                    <summary style={{ cursor: 'pointer', fontWeight: 600, color: 'var(--primary)', outline: 'none' }}>Ver Detalles del Paciente</summary>
+                    <div style={{ marginTop: '0.75rem', fontSize: '0.9rem', color: 'var(--text-main)', display: 'grid', gap: '0.5rem' }}>
+                      <p><strong>Email:</strong> {app.patient.email}</p>
+                      <p><strong>Sexo:</strong> {app.patient.gender === 'M' ? 'Masculino' : app.patient.gender === 'F' ? 'Femenino' : app.patient.gender || 'N/A'}</p>
+                      <p><strong>Edad:</strong> {app.patient.dateOfBirth ? Math.floor((new Date().getTime() - new Date(app.patient.dateOfBirth).getTime()) / 31557600000) + ' años' : 'N/A'}</p>
+                      <p><strong>Motivo:</strong> {app.reason}</p>
+                    </div>
+                  </details>
                   
                   <div style={{ marginTop: '1rem', borderTop: '1px solid var(--border)', paddingTop: '1rem' }}>
                     <form action={async (formData) => {
@@ -43,18 +52,18 @@ export default async function AdminPage() {
                       const duration = parseInt(formData.get('duration') as string);
                       await acceptAppointment(app.id, datetime, duration);
                     }} style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                      <label style={{ fontSize: '0.85rem' }}>Fijar Fecha y Hora Exacta:</label>
+                      <label style={{ fontSize: '0.9rem', color: 'var(--primary)', fontWeight: 500 }}>Fijar Fecha y Hora Exacta:</label>
                       <input type="datetime-local" name="datetime" className="input-field" style={{ padding: '0.5rem' }} required />
                       
-                      <label style={{ fontSize: '0.85rem' }}>Duración (minutos):</label>
+                      <label style={{ fontSize: '0.9rem', color: 'var(--primary)', fontWeight: 500, marginTop: '0.5rem' }}>Duración (minutos):</label>
                       <input type="number" name="duration" defaultValue={30} className="input-field" style={{ padding: '0.5rem' }} required />
                       
-                      <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
+                      <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem' }}>
                         <button type="submit" className="btn btn-primary" style={{ flex: 1, padding: '0.5rem' }}>Aceptar y Agendar</button>
                         <button formAction={async () => {
                           'use server';
                           await rejectAppointment(app.id);
-                        }} className="btn btn-secondary" style={{ padding: '0.5rem' }}>Rechazar</button>
+                        }} className="btn btn-outline" style={{ padding: '0.5rem' }}>Rechazar</button>
                       </div>
                     </form>
                   </div>

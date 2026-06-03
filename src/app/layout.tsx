@@ -1,17 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import { Providers } from "@/components/Providers";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import Image from "next/image";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Od. Pierina Villegas",
@@ -24,12 +15,35 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="es"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">
-        <Providers>{children}</Providers>
+    <html lang="es">
+      <body style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <Providers>
+          <header style={{
+            background: 'var(--surface)',
+            borderBottom: '1px solid var(--border)',
+            padding: '1rem 0',
+            position: 'sticky',
+            top: 0,
+            zIndex: 50,
+            boxShadow: '0 2px 10px rgba(18, 53, 47, 0.05)'
+          }}>
+            <div className="container" style={{ display: 'flex', justifyContent: 'center' }}>
+              <Link href="/">
+                <Image 
+                  src="/images/logo.png" 
+                  alt="Od. Pierina Villegas Logo" 
+                  width={220} 
+                  height={80} 
+                  style={{ objectFit: 'contain', height: 'auto', maxHeight: '60px' }} 
+                  priority
+                />
+              </Link>
+            </div>
+          </header>
+          <main style={{ flex: 1, padding: '2rem 0', display: 'flex', flexDirection: 'column' }}>
+            {children}
+          </main>
+        </Providers>
       </body>
     </html>
   );

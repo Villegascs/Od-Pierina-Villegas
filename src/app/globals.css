@@ -1,31 +1,51 @@
 /* src/app/globals.css */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+@font-face {
+  font-family: 'Telka';
+  src: url('/fonts/TelkaTRIAL-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Telka';
+  src: url('/fonts/TelkaTRIAL-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Telka';
+  src: url('/fonts/TelkaTRIAL-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
 
 :root {
-  /* Core brand colors (Teal & Navy Blue) */
-  --primary: #0D9488; /* Teal 600 */
-  --primary-hover: #0F766E; /* Teal 700 */
-  --primary-light: #CCFBF1; /* Teal 50 */
+  /* Core brand colors */
+  --primary: #12352F; /* Dark Forest Green */
+  --primary-hover: #1a4d44;
+  --primary-light: #e6ecd8;
   
-  --secondary: #1E293B; /* Slate 800 */
-  --secondary-hover: #0F172A; /* Slate 900 */
+  --secondary: #92a97c; /* Sage Green */
+  --secondary-hover: #a4bc8e;
   
-  --background: #F8FAFC; /* Slate 50 */
+  --background: #fffeee; /* Cream White */
   --surface: #FFFFFF;
-  --surface-alt: #F1F5F9; /* Slate 100 */
+  --surface-alt: #f5f7f2;
   
-  --text-main: #0F172A;
+  --text-main: #12352F; /* Use primary for main text to tie it together */
   --text-muted: #64748B;
   
   --danger: #EF4444;
   --success: #10B981;
   --warning: #F59E0B;
 
-  --border: #E2E8F0;
+  --border: #d1d8c5;
   
   --glass-bg: rgba(255, 255, 255, 0.7);
   --glass-border: rgba(255, 255, 255, 0.4);
-  --glass-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.05);
+  --glass-shadow: 0 8px 32px 0 rgba(18, 53, 47, 0.08); /* Shadow tinted with primary */
 }
 
 * {
@@ -35,7 +55,7 @@
 }
 
 body {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Telka', sans-serif;
   background-color: var(--background);
   color: var(--text-main);
   line-height: 1.6;
@@ -58,7 +78,7 @@ button {
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
-  border-radius: 16px;
+  border-radius: 20px;
 }
 
 .btn {
@@ -69,25 +89,25 @@ button {
   border-radius: 9999px; /* Pill shape */
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   border: none;
   font-size: 1rem;
 }
 
 .btn-primary {
   background-color: var(--primary);
-  color: white;
+  color: var(--background);
 }
 
 .btn-primary:hover {
   background-color: var(--primary-hover);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
+  box-shadow: 0 4px 12px rgba(18, 53, 47, 0.3);
 }
 
 .btn-secondary {
   background-color: var(--secondary);
-  color: white;
+  color: var(--primary);
 }
 
 .btn-secondary:hover {
@@ -108,26 +128,26 @@ button {
 .input-field {
   width: 100%;
   padding: 0.75rem 1rem;
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
   font-family: inherit;
   font-size: 1rem;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   background-color: var(--surface);
   color: var(--text-main);
 }
 
 .input-field:focus {
   outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.2);
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 4px var(--primary-light);
 }
 
 .label {
   display: block;
   font-weight: 500;
   margin-bottom: 0.5rem;
-  color: var(--secondary);
+  color: var(--primary);
 }
 
 .container {
@@ -138,10 +158,10 @@ button {
 
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(15px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.5s ease forwards;
+  animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
