@@ -67,6 +67,9 @@ export default function DatePicker({ name, defaultValue, allowPastDates = false 
             }}
             locale={es}
             disabled={allowPastDates ? undefined : (d) => d < new Date(new Date().setHours(0,0,0,0))}
+            captionLayout="dropdown"
+            startMonth={new Date(1950, 0)}
+            endMonth={new Date(2050, 11)}
             className="shadcn-calendar"
           />
         </div>
