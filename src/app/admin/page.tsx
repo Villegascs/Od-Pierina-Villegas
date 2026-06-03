@@ -2,7 +2,6 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import { getAdminAppointments, acceptAppointment, rejectAppointment, cancelAppointment, rescheduleAppointment } from "@/app/actions/appointment";
-import SignOutButton from "@/components/SignOutButton";
 
 export default async function AdminPage() {
   const session = await getServerSession(authOptions);
@@ -14,13 +13,7 @@ export default async function AdminPage() {
   const { pending, accepted, history } = await getAdminAppointments();
 
   return (
-    <div className="container" style={{ padding: '3rem 1.5rem', minHeight: '100vh' }}>
-      <header style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3rem' }}>
-        <h1 style={{ fontSize: '2rem', color: 'var(--primary)' }}>Panel de Administración - Dra. Pierina</h1>
-        <SignOutButton />
-      </header>
-
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '2rem' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '2rem' }}>
         
         {/* Columna Izquierda: Pendientes e Historial */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
@@ -156,7 +149,6 @@ export default async function AdminPage() {
           </section>
         </div>
 
-      </div>
     </div>
   );
 }
