@@ -19,8 +19,8 @@ export default function RootLayout({
       <body style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         <Providers>
           <header style={{
-            background: 'var(--surface)',
-            borderBottom: '1px solid var(--border)',
+            background: 'var(--primary)',
+            borderBottom: '1px solid var(--primary-hover)',
             padding: '1rem 0',
             position: 'sticky',
             top: 0,
