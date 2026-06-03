@@ -1,13 +1,22 @@
 'use client';
 import { signOut } from 'next-auth/react';
 
-export default function SignOutButton() {
+import React from 'react';
+
+interface SignOutButtonProps {
+  className?: string;
+  children?: React.ReactNode;
+  style?: React.CSSProperties;
+}
+
+export default function SignOutButton({ className = "btn btn-outline", children = "Cerrar Sesión", style }: SignOutButtonProps) {
   return (
     <button 
       onClick={() => signOut({ callbackUrl: '/login' })} 
-      className="btn btn-outline"
+      className={className}
+      style={style}
     >
-      Cerrar Sesión
+      {children}
     </button>
   );
 }
