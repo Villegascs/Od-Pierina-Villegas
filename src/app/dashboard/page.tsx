@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { requestAppointment } from "@/app/actions/appointment";
 import SignOutButton from "@/components/SignOutButton";
+import DatePicker from "@/components/DatePicker";
 
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
@@ -40,7 +41,7 @@ export default async function DashboardPage() {
             
             <div>
               <label className="label">Día sugerido para la cita</label>
-              <input type="date" name="date" className="input-field" required />
+              <DatePicker name="date" />
               <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>
                 La doctora Pierina confirmará la hora exacta. Horario libre desde las 8:00 AM.
               </p>

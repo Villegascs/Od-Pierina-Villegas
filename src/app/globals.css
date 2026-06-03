@@ -165,3 +165,44 @@ button {
 .animate-fade-in {
   animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+/* --- Shadcn Calendar Overrides for react-day-picker --- */
+.shadcn-calendar {
+  --rdp-cell-size: 40px;
+  --rdp-accent-color: var(--primary);
+  --rdp-background-color: var(--primary-light);
+  --rdp-accent-color-dark: var(--primary-hover);
+  --rdp-background-color-dark: var(--primary-light);
+  --rdp-outline: 2px solid var(--primary);
+  --rdp-outline-selected: 2px solid var(--primary);
+  font-family: inherit;
+}
+
+.shadcn-calendar .rdp-button:hover:not([disabled]):not(.rdp-day_selected) {
+  background-color: var(--surface-alt);
+  border-radius: 8px;
+}
+
+.shadcn-calendar .rdp-day_selected, 
+.shadcn-calendar .rdp-day_selected:focus-visible, 
+.shadcn-calendar .rdp-day_selected:hover {
+  background-color: var(--primary);
+  color: var(--background);
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.shadcn-calendar .rdp-day_today:not(.rdp-day_selected) {
+  background-color: var(--surface-alt);
+  color: var(--primary);
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.shadcn-calendar .rdp-nav_button {
+  border-radius: 8px;
+}
+
+.shadcn-calendar .rdp-nav_button:hover {
+  background-color: var(--surface-alt);
+}
