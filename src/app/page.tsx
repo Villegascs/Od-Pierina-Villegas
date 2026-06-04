@@ -121,10 +121,10 @@ export default function Home() {
             <div>
               <h2 style={{ fontSize: 'clamp(2rem, 4vw, 2.5rem)', color: 'var(--primary)', marginBottom: '1.5rem', fontWeight: 700 }}>Conoce a la Doctora</h2>
               <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', marginBottom: '1.5rem', lineHeight: 1.8 }}>
-                Con años de experiencia devolviendo sonrisas a cientos de pacientes, la Odontólogo Pierina Villegas combina la destreza clínica con un profundo sentido humano.
+                <strong>Esp. Rehabilitación Estética FACOP 🇧🇷🇻🇪</strong>
               </p>
               <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', marginBottom: '2rem', lineHeight: 1.8 }}>
-                Su objetivo no es solo tratar dientes, sino tratar personas, asegurando que cada visita al consultorio sea una experiencia confortable, libre de estrés y con resultados que cambian vidas.
+                Fiel creyente de la <strong>Filosofía Biomimética</strong>, su enfoque se basa en realizar tratamientos conservadores que logren el equilibrio perfecto entre <strong>Función y Estética</strong>.
               </p>
               <Link href="/register" className="btn btn-outline" style={{ padding: '1rem 2rem' }}>
                 Reserva tu evaluación
@@ -153,7 +153,7 @@ export default function Home() {
           
           <div>
             <h3 style={{ color: 'white', fontSize: '1.25rem', fontWeight: 600, marginBottom: '1.5rem' }}>Od. Pierina Villegas</h3>
-            <p style={{ fontSize: '0.9rem', marginBottom: '1rem', lineHeight: 1.6 }}>Especialista en estética dental, ortodoncia y diseño de sonrisa. Pasión por la salud bucal.</p>
+            <p style={{ fontSize: '0.9rem', marginBottom: '1rem', lineHeight: 1.6 }}>Esp. Rehabilitación Estética FACOP 🇧🇷🇻🇪<br/>Filosofía Biomimética: Función + Estética.</p>
           </div>
 
           <div>
@@ -167,7 +167,7 @@ export default function Home() {
               </li>
               <li style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', fontSize: '0.9rem' }}>
                 <MapPin size={18} color="var(--secondary)" style={{ flexShrink: 0, marginTop: '2px' }} /> 
-                <span>Centro Médico Odontológico<br/>Ciudad, Estado</span>
+                <span>Concepto La Viña, Piso 3<br/>Valencia, Venezuela</span>
               </li>
             </ul>
           </div>
