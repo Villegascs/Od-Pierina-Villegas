@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Od. Pierina Villegas",
   description: "Plataforma de gestión de citas odontológicas",
   icons: {
-    icon: '/images/logo.png?v=2',
+    icon: '/images/isotipo.png?v=1',
   },
 };
 
