@@ -3,11 +3,15 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function Header() {
+  const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
+  // Ocultar header en rutas administrativas o de autenticación
+  const isHiddenRoute = pathname?.startsWith('/admin') || pathname?.startsWith('/dashboard') || pathname === '/login' || pathname === '/register';
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -26,7 +30,9 @@ export default function Header() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+  }, [lastScrollY, isHiddenRoute]);
+
+  if (isHiddenRoute) return null;
 
   return (
     <header style={{
