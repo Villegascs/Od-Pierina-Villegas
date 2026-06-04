@@ -22,8 +22,8 @@ export default function RootLayout({
       <body style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         <Providers>
           <header style={{
-            background: 'var(--surface)',
-            borderBottom: '1px solid var(--border)',
+            background: 'var(--secondary)',
+            borderBottom: '1px solid var(--secondary-hover)',
             padding: '1rem 0',
             position: 'sticky',
             top: 0,
@@ -45,15 +45,15 @@ export default function RootLayout({
 
               {/* Navigation Links (Center) */}
               <nav style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-                <Link href="/#tratamientos" className="nav-link">Tratamientos</Link>
-                <Link href="/#doctora" className="nav-link">Doctora</Link>
-                <Link href="/#contacto" className="nav-link">Contacto</Link>
+                <Link href="/#tratamientos" style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 500, fontSize: '0.95rem', transition: 'opacity 0.2s', textDecoration: 'none' }} onMouseOver={(e) => e.currentTarget.style.opacity='0.7'} onMouseOut={(e) => e.currentTarget.style.opacity='1'}>Tratamientos</Link>
+                <Link href="/#doctora" style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 500, fontSize: '0.95rem', transition: 'opacity 0.2s', textDecoration: 'none' }} onMouseOver={(e) => e.currentTarget.style.opacity='0.7'} onMouseOut={(e) => e.currentTarget.style.opacity='1'}>Doctora</Link>
+                <Link href="/#contacto" style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 500, fontSize: '0.95rem', transition: 'opacity 0.2s', textDecoration: 'none' }} onMouseOver={(e) => e.currentTarget.style.opacity='0.7'} onMouseOut={(e) => e.currentTarget.style.opacity='1'}>Contacto</Link>
               </nav>
 
               {/* Action Buttons (Right) */}
               <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                <Link href="/login" className="btn btn-outline" style={{ padding: '0.5rem 1.25rem', fontSize: '0.9rem' }}>Iniciar Sesión</Link>
-                <Link href="/register" className="btn btn-primary" style={{ padding: '0.5rem 1.25rem', fontSize: '0.9rem' }}>Agendar Cita</Link>
+                <Link href="/login" className="btn btn-outline" style={{ padding: '0.5rem 1.25rem', fontSize: '0.9rem', borderColor: 'rgba(255,255,255,0.3)', color: 'white' }}>Iniciar Sesión</Link>
+                <Link href="/register" className="btn btn-primary" style={{ padding: '0.5rem 1.25rem', fontSize: '0.9rem', background: 'white', color: 'var(--primary)' }}>Agendar Cita</Link>
               </div>
             </div>
           </header>
