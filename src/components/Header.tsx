@@ -44,7 +44,7 @@ export default function Header() {
         {/* Logo (Left) */}
         <Link href="/" style={{ display: 'flex', alignItems: 'center' }}>
           <Image 
-            src="/images/logo.png" 
+            src="/images/logo-header.png" 
             alt="Od. Pierina Villegas Logo" 
             width={180} 
             height={50} 
