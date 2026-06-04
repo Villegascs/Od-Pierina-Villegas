@@ -54,6 +54,11 @@
   margin: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
 body {
   font-family: 'Telka', sans-serif;
   background-color: var(--background);
@@ -206,10 +211,28 @@ button {
   font-size: 0.95rem;
   transition: opacity 0.2s;
   text-decoration: none;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.nav-link-light::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  transition: width 0.3s ease;
+  border-radius: 2px;
 }
 
 .nav-link-light:hover {
-  opacity: 0.7;
+  opacity: 1;
+}
+
+.nav-link-light:hover::after {
+  width: 100%;
 }
 
 .animate-fade-in {
