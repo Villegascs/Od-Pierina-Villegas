@@ -87,7 +87,7 @@ export default async function AdminPage() {
         {/* Columna Derecha: Agenda */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           <section className="glass-panel" style={{ padding: '2rem', height: '100%' }}>
-            <h2 style={{ fontSize: '1.75rem', marginBottom: '1.5rem', color: 'var(--success)' }}>Agenda - Citas Aceptadas</h2>
+            <h2 style={{ fontSize: '1.75rem', marginBottom: '1.5rem', color: 'var(--secondary)' }}>Agenda - Citas Aceptadas</h2>
             
             <div style={{ display: 'grid', gap: '1rem' }}>
               {accepted.length === 0 && <p style={{ color: 'var(--text-muted)' }}>La agenda está libre.</p>}
