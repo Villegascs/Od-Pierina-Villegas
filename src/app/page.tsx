@@ -12,20 +12,6 @@ const SERVICES = [
 export default function Home() {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      
-      {/* Header / Navbar */}
-      <header className="container" style={{ padding: '2rem 1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-        <div style={{ fontWeight: 700, fontSize: '1.5rem', color: 'var(--primary)' }}>
-          Od. Pierina Villegas
-        </div>
-        <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-          <Link href="/login" className="btn btn-outline" style={{ padding: '0.6rem 1.5rem' }}>Iniciar Sesión</Link>
-          <Link href="/register" className="btn btn-primary" style={{ padding: '0.6rem 1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            Agendar Cita <ArrowRight size={18} />
-          </Link>
-        </div>
-      </header>
-
       <main style={{ flex: 1 }}>
         {/* 1. Hero Section */}
         <section style={{ padding: '4rem 1.5rem 6rem 1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
@@ -82,7 +68,7 @@ export default function Home() {
         </section>
 
         {/* 3. Services Section */}
-        <section style={{ padding: '6rem 0', background: 'var(--surface-alt)', overflow: 'hidden' }}>
+        <section id="tratamientos" style={{ padding: '6rem 0', background: 'var(--surface-alt)', overflow: 'hidden' }}>
           <div className="container" style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <h2 style={{ fontSize: 'clamp(2rem, 4vw, 2.5rem)', color: 'var(--primary)', marginBottom: '1rem', fontWeight: 700 }}>Nuestros Tratamientos</h2>
             <p style={{ color: 'var(--text-muted)', maxWidth: '600px', margin: '0 auto' }}>
@@ -109,7 +95,7 @@ export default function Home() {
         </section>
 
         {/* 4. About Section */}
-        <section style={{ padding: '6rem 1.5rem' }}>
+        <section id="doctora" style={{ padding: '6rem 1.5rem' }}>
           <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '4rem', alignItems: 'center' }}>
             <div style={{ background: 'var(--primary-light)', borderRadius: '24px', aspectRatio: '4/5', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                {/* Si luego tienes una foto real, cambias esto por un tag <Image> */}
@@ -148,7 +134,7 @@ export default function Home() {
       </main>
 
       {/* 6. Footer */}
-      <footer style={{ background: '#0a1d1a', color: 'rgba(255, 255, 255, 0.7)', padding: '4rem 1.5rem 2rem 1.5rem' }}>
+      <footer id="contacto" style={{ background: '#0a1d1a', color: 'rgba(255, 255, 255, 0.7)', padding: '4rem 1.5rem 2rem 1.5rem' }}>
         <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '3rem', marginBottom: '3rem' }}>
           
           <div>
