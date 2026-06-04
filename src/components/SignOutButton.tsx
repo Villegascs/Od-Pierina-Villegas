@@ -12,7 +12,11 @@ interface SignOutButtonProps {
 export default function SignOutButton({ className = "btn btn-outline", children = "Cerrar Sesión", style }: SignOutButtonProps) {
   return (
     <button 
-      onClick={() => signOut({ callbackUrl: '/login' })} 
+      onClick={() => {
+        if (window.confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+          signOut({ callbackUrl: '/' });
+        }
+      }} 
       className={className}
       style={style}
     >
