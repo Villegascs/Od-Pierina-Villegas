@@ -7,6 +7,9 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Od. Pierina Villegas",
   description: "Plataforma de gestión de citas odontológicas",
+  icons: {
+    icon: '/images/logo.png',
+  },
 };
 
 export default function RootLayout({
