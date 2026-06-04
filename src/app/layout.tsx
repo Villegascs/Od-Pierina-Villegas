@@ -45,9 +45,9 @@ export default function RootLayout({
 
               {/* Navigation Links (Center) */}
               <nav style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-                <Link href="/#tratamientos" style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 500, fontSize: '0.95rem', transition: 'opacity 0.2s', textDecoration: 'none' }} onMouseOver={(e) => e.currentTarget.style.opacity='0.7'} onMouseOut={(e) => e.currentTarget.style.opacity='1'}>Tratamientos</Link>
-                <Link href="/#doctora" style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 500, fontSize: '0.95rem', transition: 'opacity 0.2s', textDecoration: 'none' }} onMouseOver={(e) => e.currentTarget.style.opacity='0.7'} onMouseOut={(e) => e.currentTarget.style.opacity='1'}>Doctora</Link>
-                <Link href="/#contacto" style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 500, fontSize: '0.95rem', transition: 'opacity 0.2s', textDecoration: 'none' }} onMouseOver={(e) => e.currentTarget.style.opacity='0.7'} onMouseOut={(e) => e.currentTarget.style.opacity='1'}>Contacto</Link>
+                <Link href="/#tratamientos" className="nav-link-light">Tratamientos</Link>
+                <Link href="/#doctora" className="nav-link-light">Doctora</Link>
+                <Link href="/#contacto" className="nav-link-light">Contacto</Link>
               </nav>
 
               {/* Action Buttons (Right) */}

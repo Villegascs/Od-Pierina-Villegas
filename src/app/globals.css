@@ -200,6 +200,18 @@ button {
   color: var(--primary);
 }
 
+.nav-link-light {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: opacity 0.2s;
+  text-decoration: none;
+}
+
+.nav-link-light:hover {
+  opacity: 0.7;
+}
+
 .animate-fade-in {
   animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
