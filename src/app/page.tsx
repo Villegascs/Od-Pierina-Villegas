@@ -140,6 +140,15 @@ export default function Home() {
           <div>
             <h3 style={{ color: 'white', fontSize: '1.25rem', fontWeight: 600, marginBottom: '1.5rem' }}>Od. Pierina Villegas</h3>
             <p style={{ fontSize: '0.9rem', marginBottom: '1rem', lineHeight: 1.6 }}>Esp. Rehabilitación Estética FACOP 🇧🇷🇻🇪<br/>Filosofía Biomimética: Función + Estética.</p>
+            
+            <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
+              <a href="https://www.instagram.com/od.pierinavillegas/" target="_blank" rel="noopener noreferrer" className="btn" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', padding: '0.5rem 1rem', fontSize: '0.9rem', display: 'flex', gap: '0.5rem', alignItems: 'center', transition: 'all 0.3s' }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg> Instagram
+              </a>
+              <a href="https://www.tiktok.com/@od.pierinavillegasmascia?lang=es-419" target="_blank" rel="noopener noreferrer" className="btn" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', padding: '0.5rem 1rem', fontSize: '0.9rem', display: 'flex', gap: '0.5rem', alignItems: 'center', transition: 'all 0.3s' }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg> TikTok
+              </a>
+            </div>
           </div>
 
           <div>
